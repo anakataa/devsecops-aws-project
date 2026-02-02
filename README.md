@@ -33,43 +33,20 @@ It includes Infrastructure as Code (Terraform), containerization, CI/CD pipeline
 - Integrate security into DevOps processes
 - Demonstrate DevSecOps engineering skills
 
-## 📂 Repository Structure
+##  Repository Structure
 
 devsecops-aws-project/
 ├── terraform/
+
 ├── app/
+
 ├── ci-cd/
+
 ├── security/
+
 ├── docs/
+
 └── architecture/
-
-##  Architecture
-
-
-Developer (You)
-      |
-      v
-GitHub Repository
-      |
-      v
-GitHub Actions (CI/CD)
-  - Build Docker image
-  - Trivy scan
-  - tfsec scan
-      |
-      v
-AWS Cloud
- ┌─────────────────────────────┐
- │ VPC                         │
- │                             │
- │  Public Subnet              │
- │   └─ EC2 Instance           │
- │       ├─ Docker             │
- │       ├─ k3s (Kubernetes)   │
- │       └─ Application        │
- │                             │
- └─────────────────────────────┘
-
 
 ##  Future Improvements
 - Add Kubernetes deployment manifests
