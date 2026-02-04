@@ -1,6 +1,23 @@
+data "aws_ami" "ubuntu_22_04" {
+  most_recent = true
+
+  owners = ["099720109477"] # Canonical
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 resource "aws_instance" "devsecops_ec2" {
-  ami           = "ami-0c02fb55956c7d316" # Ubuntu 22.04 Frankfurt
-  instance_type = "t2.micro"
+  ami           = data.aws_ami.ubuntu_22_04.id
+  instance_type = "t3.micro"
+  key_name      = "devsecops-key"
 
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.devsecops_sg.id]
@@ -10,10 +27,12 @@ resource "aws_instance" "devsecops_ec2" {
     Name = "devsecops-ec2"
   }
 }
+
 # Bastion host (public)
 resource "aws_instance" "bastion" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = "t2.micro"
+  ami           = data.aws_ami.ubuntu_22_04.id
+  instance_type = "t3.micro"
+  key_name      = "devsecops-key"
 
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
@@ -25,8 +44,9 @@ resource "aws_instance" "bastion" {
 
 # App server (private)
 resource "aws_instance" "app_server" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = "t2.micro"
+  ami           = data.aws_ami.ubuntu_22_04.id
+  instance_type = "t3.micro"
+  key_name      = "devsecops-key"
 
   subnet_id              = aws_subnet.private_subnet.id
   vpc_security_group_ids = [aws_security_group.app_sg.id]
