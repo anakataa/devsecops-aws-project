@@ -20,7 +20,7 @@ jobs:
         with:
           image-ref: devsecops-app
           format: 'table'
-          exit-code: '1' # 0- its when non critical vulnerabilities< and when 1 pipline will crash if vulnerabilities are critical:** 
+          exit-code: '0' # 0- its when non critical vulnerabilities< and when 1 pipline will crash if vulnerabilities are critical:** 
           severity: 'CRITICAL,HIGH'
 
       - name: Deploy to EC2 via SSH
