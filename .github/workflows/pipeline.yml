@@ -42,9 +42,11 @@ jobs:
             sudo k3s ctr images import /tmp/app.tar
 
 
-            rm /tmp/app.tar
+            sudo rm /tmp/app.tar
+
+            sleep 10
             
-            sudo kubectl delete pod -l app=devsecops-app
+            sudo kubectl delete pod -l app=devsecops-app --now
 
 
 
