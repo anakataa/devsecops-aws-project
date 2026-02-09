@@ -29,6 +29,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 30m # 30 min to timeout the script if it takes too long
           script: |
             
             cd ~/devsecops-aws-project/app || exit
@@ -37,7 +38,11 @@ jobs:
             
             sudo docker build -t devsecops-app:latest .
             
-            sudo k3s ctr images import <(sudo docker save devsecops-app:latest)
+            sudo docker save devsecops-app:latest -o /tmp/app.tar
+            sudo k3s ctr images import /tmp/app.tar
+
+
+            rm /tmp/app.tar
             
             sudo kubectl delete pod -l app=devsecops-app
 
