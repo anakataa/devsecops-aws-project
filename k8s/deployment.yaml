@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: devsecops-app
 spec:
-  replicas: 1
+  replicas: 1 
   selector:
     matchLabels:
       app: devsecops-app
@@ -14,6 +14,8 @@ spec:
     spec:
       containers:
       - name: app
-        image: devsecops-app:latest
+        image: devsecops-app:latest 
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
+        
