@@ -35,16 +35,27 @@ jobs:
             cd ~/devsecops-aws-project/app || exit
             
             git pull origin main
+
+            # to remove all unused images and containers
+            sudo docker system prune -f 
             
             sudo docker build -t devsecops-app:latest .
             
             sudo docker save devsecops-app:latest -o /tmp/app.tar
             sudo k3s ctr images import /tmp/app.tar
 
+            echo "Waiting for CPU to cool down..."
+            sleep 30
 
-            sudo rm /tmp/app.tar
+            export KUBECONFIG=/etc/rancher/k3s/k3s.yaml 
+            for i in {1..5}; do 
+              sudo kubectl get nodes && break || sleep 15; 
+            done
 
-            sleep 10
+
+            # sudo rm /tmp/app.tar
+
+            # sleep 10
             
             sudo kubectl delete pod -l app=devsecops-app --now
 
