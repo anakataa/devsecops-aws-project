@@ -58,6 +58,26 @@ jobs:
             # sleep 10
             
             sudo kubectl delete pod -l app=devsecops-app --now
+            - name: Check Application Health
+
+      - name: Check Application Health    
+        run: |
+          echo "Waiting for app to start..."
+          sleep 20
+          URL="http://${{ secrets.EC2_HOST }}:30007"
+          
+          for i in {1..5}; do
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
+            if [ "$RESPONSE" == "200" ]; then
+              echo "✅ Success! App is up and running."
+              exit 0
+            fi
+            echo "Attempt $i: App returned $RESPONSE. Retrying in 10s..."
+            sleep 10
+          done
+          
+          echo "Error: App did not return 200 OK after 5 attempts."
+          exit 1
 
 
 
