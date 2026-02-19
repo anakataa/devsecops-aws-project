@@ -53,7 +53,7 @@ jobs:
             done
             
             sudo kubectl delete pod -l app=devsecops-app --now
-            - name: Check Application Health
+            
 
       - name: Check Application Health    
         run: |
@@ -64,7 +64,7 @@ jobs:
           for i in {1..5}; do
             RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
             if [ "$RESPONSE" == "200" ]; then
-              echo "✅ Success! App is up and running."
+              echo "Success! App is up and running."
               exit 0
             fi
             echo "Attempt $i: App returned $RESPONSE. Retrying in 10s..."
@@ -101,4 +101,5 @@ jobs:
 #               uses: aquasecurity/trivy-action@master
 #               with:
 #                   image-ref: devsecops-app
+
 
