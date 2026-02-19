@@ -38,7 +38,8 @@ def hello():
         </style>
     </head>
     <body>
-        <h1>АLEKSANDR SOSI HUI )))))</h1>
+        # <h1>АLEKSANDR SOSI HUI )))))</h1>
+        <h1>DevSecProject is running!!!!</h1
     </body>
     </html>
     """
@@ -46,3 +47,4 @@ def hello():
 if __name__ == "__main__":
 
     app.run(host="0.0.0.0", port=8080)
+
