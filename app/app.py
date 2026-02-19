@@ -30,7 +30,7 @@ def hello():
                 font-family: sans-serif;
             }
             h1 {
-                font-size: 17vw;
+                font-size: 14vw;
                 text-align: center;
                 color: #000000;
                 text-transform: uppercase;
@@ -44,4 +44,5 @@ def hello():
     """
 
 if __name__ == "__main__":
+
     app.run(host="0.0.0.0", port=8080)
